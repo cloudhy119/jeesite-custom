@@ -1,0 +1,77 @@
+*, html, body { margin: 0; padding: 0;}
+body { color: #656565; font-size: 14px; line-height: 1.5em; }
+a { color: #656565; text-decoration: none; }
+a:hover { color: #fe6506; }
+ul, li { list-style: none; }
+ul, li, h1, h2, h3, h4, h5, p { margin: 0; padding: 0; }
+.clearfix:after { content: " "; display: block; clear: both; height: 0; }
+.clearfix { zoom: 1; }
+.fl { float: left; }
+.fr { float: right; }
+img { border: none; }
+.container { margin: 0 auto; width: 1200px; }
+em, i { font-style: normal; }
+.uc-form-control { display: block; width: 100%; padding-top: 10px; padding-bottom: 10px; padding-left: 12px; padding-right: 12px; font-size: 15px; line-height: 1.42857143; color: #555; background-color: #fff; background-image: none; border: 1px solid #ddd; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075); -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+ -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+ transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+box-sizing: border-box; }
+.redcol { color: #fe6506; }
+table { border-collapse:collapse; border-spacing:0; }
+.bg_bz{background: url(../img/bodybg01.jpg) center top no-repeat; }
+/**********************会员中心**********************/
+.header{height: 144px;}
+.top_page {height: 30px;line-height: 30px;box-sizing: border-box; background-color: rgba(0,0,0,0.2);border-radius: 0px 0px 4px 4px;padding-left: 10px;padding-right: 10px; margin-left: auto;margin-right: auto;width: 1200px;}
+.pageleft {float: left;height: 26px;overflow: hidden;color: #d9d9d9;}
+.lightwhite {color: #fff!important;}
+.admin-wrap .logo { padding-top: 20px;}
+.admin-wrap .nav {width: 100%;height: 50px;line-height: 50px;padding-left: 20px;padding-right: 20px;background-color: #438bc9;border-radius: 6px;box-sizing: border-box;}
+.admin-wrap .nav {margin-top: 15px;}
+.admin-wrap .nav ul{ float: left; }
+.admin-wrap .nav li { float: left; }
+.admin-wrap .nav li a { font-size: 17px;font-weight: bold;color: #fff;display: block;padding-left: 30px;padding-right: 30px;}
+.searchForm{float: right;}
+.navcurr {background-color: #fe6506;color: #fff!important;}
+.admin-wrap .admin-menu{width: 200px;float: left; box-sizing: border-box; margin-top: 20px;}
+.admin-wrap .admin-menu dt{ background: #0998e9; color: #fff; padding: 17px 25px; font-size: 18px; font-weight: bold;}
+.admin-wrap .admin-menu dd{ padding: 15px 15px; background: #fff; border: solid 1px #ddd;}
+.admin-wrap .admin-menu dd a{display: block; padding: 10px 30px; border-radius: 4px; font-size: 16px; background: url(../img/st_icon.png) 15px center no-repeat;}
+.admin-wrap .admin-menu dd a.current{ background: #eee url(../img/st_icon.png) 15px center no-repeat;}
+.admin-wrap .main {width: 980px; float: right; box-sizing: border-box; margin-top: 20px; padding: 5px 20px 20px 20px; background: #fff; border: solid 1px #ddd; }
+.admin-wrap .main .uc-title { font-size: 18px; margin-bottom: 20px; font-weight: bold; height: 42px; line-height: 42px; padding-bottom: 3px; border-bottom: solid 3px #ededed; }
+.admin-wrap .main .uc-title span { border-bottom: solid 3px #438bc9; padding-left: 10px; padding-right: 10px; height: 45px; display: inline-block; color: #438bc9; }
+.grade { display: inline-block; border-radius: 20px; padding-left: 10px; padding-right: 10px; background: #fe6506; font-size: 12px; color: #fff; margin-left: 20px; }
+.admin-wrap .table { border-collapse:collapse; border-spacing:0; }
+.admin-wrap .table th, .admin-wrap .table td { padding: 8px; }
+.admin-wrap .table th { text-align: right; }
+.admin-wrap .submit { background: #438bc9; color: #fff; height: 45px; line-height: 45px; font-weight: bold; font-size: 14px; border-radius: 6px; padding-left: 35px; padding-right: 35px; border: none; }
+.list-top p { float: left; line-height: 30px; }
+.list-top p em { font-style: normal; color: #fe6506; }
+.search-main .collect a { color: #0099cc; }
+.search-main .collect a:hover { color: #fe6506; }
+.top-page span { display: inline-block; padding: 0 10px; cursor: pointer; }
+.top-page span.curr { background: #438bc9; color: #fff; }
+.top-page a { padding: 0 10px; display: inline-block; background: #eee; }
+.top-page a:hover { background: #438bc9; color: #fff; }
+.pages { padding:15px 0 15px 0; }
+.page { list-style: none; display: inline-block; }
+.page a { float: left; padding: 5px 10px; cursor: pointer; border: solid thin #ccc; margin-left: 5px; margin-right: 5px; }
+.page a.active { border: solid thin #fe6506; margin-left: 5px; margin-right: 5px; background-color: #fe6506; color: white; }
+.page a:hover { border: solid thin #d0d6db; background-color: #ececec; }
+.pages input { width: 60px; height: 30px; line-height: 30px; padding-left: 6px; padding-right: 6px; border: solid 1px #ccc; }
+.pages button { padding: 5px 8px; }
+.list-table { margin-top: 10px; }
+.list-table table { border-collapse:collapse; border-spacing:0; }
+.list-table th { background: #e7f1fe; }
+.list-table th, .list-table td { padding: 8px; box-sizing: border-box; border: solid 1px #ddd; }
+.del { color: #438bc9; }
+.edit { font-size: 14px; font-weight: bold; height: 35px; line-height: 35px; padding-left: 10px; padding-right: 10px; display: inline-block; cursor: pointer; border: solid 1px #ddd; }
+.message { width: 980px; float: right; box-sizing: border-box; margin-top: 20px; padding:5px 20px 20px 20px; background: #fff; border: solid 1px #ddd; }
+.message #tab1 .menubox { margin-bottom: 20px; font-weight: bold; height: 42px; line-height: 42px; padding-bottom: 3px; border-bottom: solid 3px #ededed; }
+.message #tab1 .menubox li { float: left; margin-right: 20px; font-size: 18px; cursor: pointer; padding-left: 10px; padding-right: 10px; }
+.message #tab1 .menubox .hover { color: #438bc9; font-weight: bold; border-bottom: solid 3px #438bc9; height: 45px; display: inline-block; }
+.hide { display: none; }
+/*****底部*********/
+.footer { line-height: 1.6em; color: #666; border-top: solid 1px #ddd; text-align: center; margin-top: 20px; padding-top: 20px; padding-bottom: 20px; }
+
+.accordion-heading, .table th {background-image:-webkit-linear-gradient(top,#fff,#fff);}
+.table { background-color: #fff;}

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccgx.common.file.dao.SysFileDao">
+    
+	<sql id="sysFileColumns">
+		a.id AS "id",
+		a.file_name AS "fileName",
+		a.file_path AS "filePath",
+		a.item_id AS "itemId",
+		a.item_code AS "itemCode",
+		a.file_type AS "fileType",
+		a.file_info AS "fileInfo",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="sysFileJoins">
+	</sql>
+    
+	<select id="get" resultType="com.ccgx.common.file.entity.SysFile">
+		SELECT 
+			<include refid="sysFileColumns"/>
+		FROM sys_file a
+		<include refid="sysFileJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.ccgx.common.file.entity.SysFile">
+		SELECT 
+			<include refid="sysFileColumns"/>
+		FROM sys_file a
+		<include refid="sysFileJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="itemId != null and itemId != ''">
+				AND a.item_id = #{itemId}
+			</if>
+			<if test="itemCode != null and itemCode != ''">
+				AND a.item_code = #{itemCode}
+			</if>
+			<if test="fileName != null and fileName != ''">
+				AND a.file_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{fileName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{fileName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{fileName},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="com.ccgx.common.file.entity.SysFile">
+		SELECT 
+			<include refid="sysFileColumns"/>
+		FROM sys_file a
+		<include refid="sysFileJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO sys_file(
+			id,
+			file_name,
+			file_path,
+			item_id,
+			item_code,
+			file_type,
+			file_info,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{fileName},
+			#{filePath},
+			#{itemId},
+			#{itemCode},
+			#{fileType},
+			#{fileInfo},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<select id="getByItemId" resultType="com.ccgx.common.file.entity.SysFile">
+	    SELECT 
+			<include refid="sysFileColumns"/>
+		FROM sys_file a
+		<where>
+			a.item_id = #{itemId}
+		</where>
+		order by create_date asc
+	</select>
+	
+	<update id="update">
+		UPDATE sys_file SET 	
+			file_name = #{fileName},
+			file_info = #{fileInfo}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE sys_file SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+		<if test="itemId != null and itemId != ''">
+			AND item_id = #{itemId}
+		</if>
+		<if test="itemCode != null and itemCode != ''">
+			AND item_code = #{itemCode}
+		</if>
+	</update>
+	<update id="deleteByCondition">
+		DELETE FROM sys_file 
+		WHERE 1=1
+		<if test="itemId != null and itemId != ''">
+			AND item_id = #{itemId}
+		</if>
+		<if test="itemCode != null and itemCode != ''">
+			AND item_code = #{itemCode}
+		</if>
+	</update>
+	
+</mapper>

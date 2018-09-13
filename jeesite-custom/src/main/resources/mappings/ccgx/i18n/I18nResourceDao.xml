@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccgx.i18n.dao.I18nResourceDao">
+    
+	<sql id="i18nResourceColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.text AS "text",
+		a.lang AS "lang",
+		a.page_id AS "pageId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		p.id AS "i18nPage.id",
+		p.page_name AS "i18nPage.pageName",
+		p.page_url AS "i18nPage.pageUrl",
+		u.name AS "updateBy.name"
+	</sql>
+	
+	<sql id="i18nResourceJoins">
+		LEFT JOIN i18n_page p ON p.id=a.page_id
+		LEFT JOIN sys_user u ON u.id=a.update_by
+	</sql>
+    
+	<select id="get" resultType="com.ccgx.i18n.entity.I18nResource">
+		SELECT 
+			<include refid="i18nResourceColumns"/>
+		FROM i18n_resource a
+		<include refid="i18nResourceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findByNameAndLang" resultType="com.ccgx.i18n.entity.I18nResource">
+		SELECT 
+			<include refid="i18nResourceColumns"/>
+		FROM i18n_resource a
+		<include refid="i18nResourceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+			<if test="lang != null and lang != ''">
+				AND a.lang = #{lang}
+			</if>
+		</where>
+	</select>
+	<select id="findList" resultType="com.ccgx.i18n.entity.I18nResource">
+		SELECT 
+			<include refid="i18nResourceColumns"/>
+		FROM i18n_resource a
+		<include refid="i18nResourceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+			<if test="text != null and text != ''">
+				AND a.text LIKE 
+					<if test="dbName == 'oracle'">'%'||#{text}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{text}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{text},'%')</if>
+			</if>
+			<if test="lang != null and lang != ''">
+				AND a.lang = #{lang}
+			</if>
+			<if test="pageId != null and pageId != ''">
+				AND a.page_id = #{pageId}
+			</if>
+			<!-- 非超级管理员只能管理归属自己公司的资源 -->
+			<if test="!currentUser.admin">
+				AND p.office_id = #{currentUser.company.id}
+			</if>
+		</where>
+		ORDER BY a.page_id
+	</select>
+	
+	<select id="findAllList" resultType="com.ccgx.i18n.entity.I18nResource">
+		SELECT 
+			<include refid="i18nResourceColumns"/>
+		FROM i18n_resource a
+		<include refid="i18nResourceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO i18n_resource(
+			id,
+			name,
+			text,
+			lang,
+			page_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{name},
+			#{text},
+			#{lang},
+			#{pageId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE i18n_resource SET 	
+			name = #{name},
+			text = #{text},
+			lang = #{lang},
+			page_id = #{pageId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE i18n_resource SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<update id="deleteByCondition">
+		DELETE FROM i18n_resource
+		WHERE 1=1
+		<if test="id != null and id != ''">
+			AND id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			AND name = #{name}
+		</if>
+	</update>
+	
+</mapper>

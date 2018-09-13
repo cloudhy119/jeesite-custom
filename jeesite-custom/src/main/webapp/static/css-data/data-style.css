@@ -1,0 +1,62 @@
+*, html, body { margin: 0; padding: 0; font-family: "微软雅黑"; }
+body { color: #4d4d4d; background: #f0f0f0;}
+a { color: #4d4d4d; text-decoration: none; }
+a:hover {text-decoration: none; }
+ul, li,p { list-style: none; margin: 0; padding: 0; }
+.clearfix:after { content: " "; display: block; clear: both; height: 0; }
+.clearfix { zoom: 1; }
+em,i{font-style: normal;}
+.font18{font-size: 18px;}
+/**头部**/
+.data-header{background: #293b54; height: 50px; overflow: hidden; line-height: 50px; padding-left: 15px; z-index: 3; }
+.data-header .logo{color: #fff; font-size: 24px; margin:0;}
+/**菜单**/
+.data-menu{width: 220px; background: #417eb6; position: absolute; left: 0; bottom: 0; top: 50px;z-index: 2;}
+.data-menu li p a{display: block; background: #548bbd; padding: 10px; font-size: 16px; color: #fff; border-top: solid 1px #78a2c9; border-bottom: solid 1px #3771a6;}
+.data-menu li p a i{ margin-right: 10px;}
+.data-menu li p a:hover{background: #5d91c1;}
+.data-menu ul.sub-menu {padding-bottom: 10px; padding-top: 10px;}
+.data-menu ul.sub-menu li a{display: block; padding-left: 30px; height: 35px; line-height: 35px; color: #c0d3ea; font-size: 14px;}
+.data-menu ul.sub-menu li a:hover{color: #fff;}
+/**主内容**/
+.data-main{position:absolute;left: 220px; overflow-y: auto; right: 0; top: 50px; bottom: 0; z-index: 1;}
+.data1 {padding: 10px 10px 0 10px;}
+.data1 table{width: 100%;}
+.data1 table th{width: 10%; text-align: center; vertical-align: middle;}
+.data1 table td{ width: 18%;padding: 10px; box-sizing: border-box; height:100%;word-break:break-all;}
+.data1 dl{float: left; padding: 5px; margin: 0; display:block; width:100%; height:100%; background: #fff; box-sizing: border-box; -moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px; border: solid 1px #e5e5e5;}
+.data1 em{ font-size: 18px; font-weight: bold;color: #333;}
+.data1 dl dt,.data1 dl dd{float: left; padding: 10px;}
+.data1 dl dd b{font-size: 18px; margin-bottom: 5px; color: #333; margin-top: 5px; display: inline-block;}
+
+.data2{padding-left: 10px;padding-right: 10px;}
+.data2 table{width: 100%;}
+.data2 td{padding: 10px; width: 33.33%; box-sizing: border-box;}
+.data-title{width: 100%; background: #f7f7f7; font-size: 18px; font-weight: bold; color: #333; padding: 10px 20px; box-sizing: border-box; -moz-border-radius: 4px 4px 0 0;-webkit-border-radius: 4px 4px 0 0;border-radius: 4px 4px 0 0; border: solid 1px #e5e5e5;}
+.data2-con{background: #fff; padding:15px 30px; box-sizing: border-box; -moz-border-radius: 0 0 4px 4px;-webkit-border-radius: 0 0 4px 4px;border-radius: 0 0 4px 4px;  border: solid 1px #e5e5e5; border-top: 0;}
+.data2-con label{font-weight: normal;}
+.data2-con em{font-size: 14px; padding: 2px 8px; margin-left: 10px; display: inline-block; border-radius: 20px; font-weight: bold; color: #fff;}
+.data2-con li{width: 50%;float: left;padding: 5px; box-sizing: border-box;}
+.bgcol1{background: #f3503a;}
+.bgcol2{background: #40c9bf;}
+.bgcol3{background: #2f557b;}
+.bgcol4{background: #f58f11;}
+.bgcol5{background: #429dee;}
+.bgcol6{background: #8085d4;}
+
+.map{background: #fff; height: 340px; box-sizing: border-box;overflow: hidden; -moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius: 4px;  border: solid 1px #e5e5e5; border-top: 0; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .02), 0 1px 4px 0 rgba(0, 0, 0, .02), 0 3px 1px -2px rgba(0, 0, 0, .02);}
+.map img{width: 100%;height: 100%;}
+.data3 {margin-left: -10px; margin-right: -10px;}
+.data3 li{width: 50%; box-sizing: border-box; float: left; padding:0 10px; text-align: center;}
+.data3-con{background: #fff; padding:15px 30px; box-sizing: border-box; -moz-border-radius: 0 0 4px 4px;-webkit-border-radius: 0 0 4px 4px;border-radius: 0 0 4px 4px;  border: solid 1px #e5e5e5; border-top: 0;}
+.data3-num{width: 50%;float: left; height: 128px;}
+.data3-num p{ padding-left: 5px; padding-right: 5px; box-sizing: border-box;}
+.data3-num p img{width: 100%; margin-bottom: 10px; margin-top: 5px;}
+
+.data4{background: #fff; padding:15px 30px; box-sizing: border-box; -moz-border-radius: 0 0 4px 4px;-webkit-border-radius: 0 0 4px 4px;border-radius: 0 0 4px 4px;  border: solid 1px #e5e5e5; border-top: 0;}
+
+.data5-con{background: #fff; padding:15px 30px; box-sizing: border-box; -moz-border-radius: 0 0 4px 4px;-webkit-border-radius: 0 0 4px 4px;border-radius: 0 0 4px 4px;  border: solid 1px #e5e5e5; border-top: 0;}
+
+
+
+

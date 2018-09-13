@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ccgx.i18n.dao.I18nPageDao">
+    
+	<sql id="i18nPageColumns">
+		a.id AS "id",
+		a.page_name AS "pageName",
+		a.page_url AS "pageUrl",
+		a.office_id AS "office.id",
+		a.role_id AS "roleId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		o4.name AS "office.name",
+		u.name AS "updateBy.name"
+	</sql>
+	
+	<sql id="i18nPageJoins">
+		LEFT JOIN sys_office o4 ON o4.id = a.office_id
+		LEFT JOIN sys_user u ON u.id=a.update_by
+	</sql>
+    
+	<select id="get" resultType="com.ccgx.i18n.entity.I18nPage">
+		SELECT 
+			<include refid="i18nPageColumns"/>
+		FROM i18n_page a
+		<include refid="i18nPageJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.ccgx.i18n.entity.I18nPage">
+		SELECT 
+			<include refid="i18nPageColumns"/>
+		FROM i18n_page a
+		<include refid="i18nPageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="pageName != null and pageName != ''">
+				AND a.page_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{pageName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{pageName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{pageName},'%')</if>
+			</if>
+			<!-- 非超级管理员只能管理归属自己公司的资源 -->
+			<if test="!currentUser.admin">
+				AND a.office_id = #{currentUser.company.id}
+			</if>
+		</where>
+		ORDER BY a.page_name
+	</select>
+	
+	<select id="findAllList" resultType="com.ccgx.i18n.entity.I18nPage">
+		SELECT 
+			<include refid="i18nPageColumns"/>
+		FROM i18n_page a
+		<include refid="i18nPageJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO i18n_page(
+			id,
+			page_name,
+			page_url,
+			office_id,
+			role_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{pageName},
+			#{pageUrl},
+			#{office.id},
+			#{roleId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE i18n_page SET 	
+			page_name = #{pageName},
+			page_url = #{pageUrl},
+			office_id = #{office.id},
+			role_id = #{roleId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE i18n_page SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

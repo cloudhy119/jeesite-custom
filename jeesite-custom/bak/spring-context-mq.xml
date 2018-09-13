@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <description>Spring RabbitMQ</description>
+    <!--配置connection-factory，指定连接rabbit server参数 -->
+    <rabbit:connection-factory id="connectionFactory"
+                               host="${mq.host}" port="${mq.port}" username="${mq.username}"
+                               password="${mq.password}" publisher-returns="true" publisher-confirms="true" />
+
+    <!--通过指定下面的admin信息，当前producer中的exchange和queue会在rabbitmq服务器上自动生成 -->
+    <rabbit:admin connection-factory="connectionFactory" />
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" />
+
+    <!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列-->
+    <rabbit:queue name="jt_ecancelledDataQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_chargeCorrectQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_ecarCorrectQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_edutyQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_xcancelledDataQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_xcarCorrectQueue" durable="true" auto-delete="false" exclusive="false" />
+    <rabbit:queue name="jt_xdutyQueue" durable="true" auto-delete="false" exclusive="false" />
+    <!--定义direct-exchange -->
+    <rabbit:direct-exchange name="ecancelledDataExChange" durable="true" auto-delete="false" >
+        <rabbit:bindings>
+            <rabbit:binding queue="jt_ecancelledDataQueue" key="ecancelledDataQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_chargeCorrectQueue" key="chargeCorrectQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_ecarCorrectQueue" key="ecarCorrectQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_edutyQueue" key="edutyQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_xcancelledDataQueue" key="xcancelledDataQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_xcarCorrectQueue" key="xcarCorrectQueue" ></rabbit:binding>
+            <rabbit:binding queue="jt_xdutyQueue" key="xdutyQueue" ></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- 消息接收者 -->
+    <bean id="ecancelledDataQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.EcancelledDataQueueConsumer"></bean>
+    <bean id="chargeCorrectQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.ChargeCorrectQueueConsumer"></bean>
+    <bean id="ecarCorrectQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.EcarCorrectQueueConsumer"></bean>
+    <bean id="edutyQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.EdutyQueueConsumer"></bean>
+    <bean id="xcancelledDataQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.XcancelledDataQueueConsumer"></bean>
+    <bean id="xcarCorrectQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.XcarCorrectQueueConsumer"></bean>
+    <bean id="xdutyQueueConsumer" class="com.ccgx.inter.jky.mq.consumer.chargeinfo.XdutyQueueConsumer"></bean>
+
+    <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象 acknowledge="manual"消费者手动应答才会从队列中移除消息，acknowledge="auto"自动移除消息-->
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual">
+        <rabbit:listener  queues="jt_ecancelledDataQueue"  ref="ecancelledDataQueueConsumer"/>
+        <rabbit:listener  queues="jt_chargeCorrectQueue"  ref="chargeCorrectQueueConsumer"/>
+        <rabbit:listener  queues="jt_ecarCorrectQueue"  ref="ecarCorrectQueueConsumer"/>
+        <rabbit:listener  queues="jt_edutyQueue"  ref="edutyQueueConsumer"/>
+        <rabbit:listener  queues="jt_xcancelledDataQueue"  ref="xcancelledDataQueueConsumer"/>
+        <rabbit:listener  queues="jt_xcarCorrectQueue"  ref="xcarCorrectQueueConsumer"/>
+        <rabbit:listener  queues="jt_xdutyQueue"  ref="xdutyQueueConsumer"/>
+    </rabbit:listener-container>
+
+
+</beans>
